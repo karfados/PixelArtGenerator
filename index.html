@@ -3,9 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Pixel Art Generator</title>
 </head>
 <body>
+    <div class="wrapper">
+
+        <div class="opt-wrapper">
+            <div class="slider">
+                <label for="width-range">Grid Width</label>
+                <input type="range" id="width-range" min="1" max="100">
+                <span id="width-value">00</span>
+            </div>
+        
+            <div class="slider">
+                <label for="heigth-range">Grid Width</label>
+                <input type="range" id="heigth-range" min="1" max="100">
+                <span id="heigth-value">00</span>
+            </div>
+        </div>
     
+        <div class="opt-wrapper">
+            <button id="submmit-grid">Create Grid</button>
+            <button id="clear-grid">Clear Grid</button>
+            <input type="color" id="color-input">
+            <button id="erace-btn">Erace</button>
+            <button id="paint-btn">Paint</button>
+        </div>
+        
+        <div class="container">
+        </div>
+    </div>
+    <script src="index.js"></script>
 </body>
 </html>
