@@ -47,6 +47,10 @@ gridButton.addEventListener("click", ()=>{
     for(let i=0 ; i<gridHeigth.ariaValueMax; i++){
         count +=2;
         let div=document.createEvent("div");
+
+        for(let j=0; j < gridWidth.value;j++){
+            
+        }
     }
 })
 
