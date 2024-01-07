@@ -11,7 +11,7 @@ let heigthValue=document.getElementById("heigth-value");
 
 let events = {
     mouse:{
-        dawn:"mousedawn",
+        dawn:"mousedown",
         move:"mousemove",
         up:"mouseup"
     },
@@ -44,16 +44,17 @@ gridButton.addEventListener("click", ()=>{
     container.innerHTML="";
     let count = 0;
     for(let i=0 ; i<gridHeigth.value; i++){
-        count +=2;
+        //count ++; //por que????
         let div=document.createElement("div");
         div.classList.add("gridRow");
 
         for(let j=0; j < gridWidth.value;j++){
-            count =+2;
+            count ++;
             let col=document.createElement("div");
             col.classList.add("gridCol");
             col.setAttribute("id", `gridCol${count}`);
             col.addEventListener(events[deviceType].dawn, ()=>{
+                console.log(events[deviceType].dawn)
                 draw = true;
                 if (erase) {
                     col.style.backgroundColor = "transparent";
@@ -69,7 +70,6 @@ gridButton.addEventListener("click", ()=>{
                 ).id;
                 checker(elementId);
             });
-            
             col.addEventListener(events[deviceType].up,()=>{
                 draw=false;
             });
@@ -80,14 +80,19 @@ gridButton.addEventListener("click", ()=>{
         container.appendChild(div)
     }
 });
-
-function checker(elementId){
-    let gridColums= document.querySelectorAll(".gridCol");
-    gridColums.forEach((element)=>{
+/*La funcion cheker es la encargada del dibujo y del borrado*/
+function checker(elementId) {
+    let gridColumns = document.querySelectorAll(".gridCol");
+    console.log("elementID= "+elementId)
+    console.log(gridColumns)
+    gridColumns.forEach((element) => {
         if (elementId == element.id) {
-            element.style.backgroundColor=colorButton.value;
-        }else if(draw && erase){
-            element.style.backgroundColor="transparent";
+            console.log(elementId+"=="+element.id+"-------------------si");
+            if (draw && !erase) {
+                element.style.backgroundColor = colorButton.value;
+            } else if (draw && erase) {
+                element.style.backgroundColor = "transparent";
+            }
         }
     });
 }
@@ -98,6 +103,7 @@ clearGridButton.addEventListener("click",()=>{
 
 eraseBtn.addEventListener("click",()=>{
     erase=true;
+    draw=false
 });
 
 paintBtn.addEventListener("click",()=>{

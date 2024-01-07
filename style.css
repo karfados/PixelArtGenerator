@@ -46,7 +46,7 @@ button{
 }
 
 input[type="color"]{
-    /* -webkit-animation: none; */
+    -webkit-animation: none;
     -moz-appearance: none;
     appearance: none;
     background-color: transparent;
