@@ -32,8 +32,7 @@ const isTouchDevice = () =>{
         document.createEvent("Touchevent");
         deviceType="touch";
         return true;
-    }
-    catch(e){
+    }catch(e){
         deviceType= "mouse";
         return false;
     }
@@ -44,14 +43,77 @@ isTouchDevice();
 gridButton.addEventListener("click", ()=>{
     container.innerHTML="";
     let count = 0;
-    for(let i=0 ; i<gridHeigth.ariaValueMax; i++){
+    for(let i=0 ; i<gridHeigth.value; i++){
         count +=2;
-        let div=document.createEvent("div");
+        let div=document.createElement("div");
+        div.classList.add("gridRow");
 
         for(let j=0; j < gridWidth.value;j++){
-            
-        }
-    }
-})
+            count =+2;
+            let col=document.createElement("div");
+            col.classList.add("gridCol");
+            col.setAttribute("id", `gridCol${count}`);
+            col.addEventListener(events[deviceType].dawn, ()=>{
+                draw = true;
+                if (erase) {
+                    col.style.backgroundColor = "transparent";
+                } else {
+                    col.style.backgroundColor = colorButton.value;
+                }
+            });
 
+            col.addEventListener(events[deviceType].move, (e)=>{
+                let elementId= document.elementFromPoint(
+                    !isTouchDevice()?e.clientX: e.touches[0].clientX,
+                    !isTouchDevice()?e.clientY: e.touches[0].clientY,
+                ).id;
+                checker(elementId);
+            });
+            
+            col.addEventListener(events[deviceType].up,()=>{
+                draw=false;
+            });
+            div.appendChild(col);
+
+        }
+
+        container.appendChild(div)
+    }
+});
+
+function checker(elementId){
+    let gridColums= document.querySelectorAll(".gridCol");
+    gridColums.forEach((element)=>{
+        if (elementId == element.id) {
+            element.style.backgroundColor=colorButton.value;
+        }else if(draw && erase){
+            element.style.backgroundColor="transparent";
+        }
+    });
+}
+
+clearGridButton.addEventListener("click",()=>{
+    container.innerHTML="";
+});
+
+eraseBtn.addEventListener("click",()=>{
+    erase=true;
+});
+
+paintBtn.addEventListener("click",()=>{
+    erase=false;
+});
+
+gridWidth.addEventListener("input",()=>{
+    widthValue.innerHTML = gridWidth.value <9 ? `0${gridWidth.value}`:gridWidth.value;
+});
+
+gridHeigth.addEventListener("input",()=>{
+    heigthValue.innerHTML = gridHeigth.value <9 ? `0${gridHeigth.value}`:gridHeigth.value;
+});
+
+window.onload = ()=>{
+    gridHeigth.value=0;
+    gridWidth.value=0;
+};
 
